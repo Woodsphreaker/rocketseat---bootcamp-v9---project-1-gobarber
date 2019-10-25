@@ -6,7 +6,7 @@ import user from '../app/models/Users'
 
 const models = [user]
 
-class Data {
+class Database {
     constructor() {
         this.init()
     }
@@ -17,4 +17,4 @@ class Data {
     }
 }
 
-export default new Data()
+export default new Database()

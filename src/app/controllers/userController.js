@@ -6,10 +6,19 @@ const show = () => {}
 
 const update = () => {}
 
-const store = (req, res) => {
-    Users.create(req.body)
-        .then(user => res.json(user))
-        .catch(error => res.json(error))
+const store = async (req, res) => {
+    const exists = await Users.findOne({ where: { email: req.body.email } })
+
+    if (exists) {
+        return res.status(400).send({ error: 'User already exists' })
+    }
+
+    const { name, email, provider } = await Users.create(req.body)
+    return res.send({
+        name,
+        email,
+        provider,
+    })
 }
 
 const destroy = () => {}

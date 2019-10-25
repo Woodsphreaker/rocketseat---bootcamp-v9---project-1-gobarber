@@ -7,6 +7,6 @@ import userController from './app/controllers/userController'
 
 const router = Router()
 
-router.get('/', userController.store)
+router.post('/users', userController.store)
 
 export default router
