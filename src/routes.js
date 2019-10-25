@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 // Controllers
-import userController from './app/controllers/userControler'
+import userController from './app/controllers/userController'
 
 // Middlewares
 
