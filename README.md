@@ -3,5 +3,5 @@
 </h1>
 
 <h3 align="center">
-  Projeto 1: Go Barber
+  Projetc #1: Go Barber
 </h3>
