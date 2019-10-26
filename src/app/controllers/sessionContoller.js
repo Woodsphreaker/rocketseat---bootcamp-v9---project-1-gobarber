@@ -1,8 +1,22 @@
 import jwt from 'jsonwebtoken'
 import auth from '../../config/auth'
+import * as Yup from 'yup'
 import Users from '../models/Users'
 
 const store = async (req, res) => {
+    const schema = Yup.object().shape({
+        email: Yup.string()
+            .email()
+            .required(),
+        password: Yup.string()
+            .min(6)
+            .required(),
+    })
+
+    if (!(await schema.isValid(req.body))) {
+        return res.status(400).json({ erro: 'Validation failed' })
+    }
+
     const { email, password } = req.body
 
     const user = await Users.findOne({ where: { email } })
