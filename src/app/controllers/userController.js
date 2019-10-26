@@ -4,7 +4,9 @@ const index = () => {}
 
 const show = () => {}
 
-const update = () => {}
+const update = (req, res) => {
+    res.json({ message: 'ok' })
+}
 
 const store = async (req, res) => {
     const exists = await Users.findOne({ where: { email: req.body.email } })
