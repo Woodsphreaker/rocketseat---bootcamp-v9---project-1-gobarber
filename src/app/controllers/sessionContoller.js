@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken'
 import auth from '../../config/auth'
-import bcrypt from 'bcrypt'
 import Users from '../models/Users'
 
 const store = async (req, res) => {
@@ -12,7 +11,7 @@ const store = async (req, res) => {
         return res.status(401).json({ error: 'user not found' })
     }
 
-    if (!(await bcrypt.compare(password, user.password_hash))) {
+    if (!(await user.checkPassword(password))) {
         return res.status(401).json({ error: 'user or password incorrect' })
     }
 

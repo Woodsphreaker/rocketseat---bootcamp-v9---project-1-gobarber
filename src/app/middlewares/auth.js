@@ -15,7 +15,7 @@ export default (req, res, next) => {
     }
 
     if (!token) {
-        return res.status(401).json({ error: 'token not found' })
+        return res.status(401).json({ error: 'Token not provided' })
     }
 
     jwt.verify(token, auth.secret, (error, decoded) => {
@@ -24,7 +24,7 @@ export default (req, res, next) => {
         }
         const { id } = decoded
         req.userID = id
-        // console.log(id)
+        console.log(decoded)
         next()
     })
 }
