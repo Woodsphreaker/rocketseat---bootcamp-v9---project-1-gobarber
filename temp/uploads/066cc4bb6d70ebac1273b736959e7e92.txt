@@ -1,0 +1,217 @@
+************************************************
+***** INSTALL AND CONFIG SUCRASE E NODEMON *****
+************************************************
+-- 
+yarn add sucrase nodemon -D
+
+criar na raiz do projeto o arquivo  nodemon.json contendo a config:
+{
+  "execMap": {
+    "js": "node -r sucrase/register"
+  }
+}
+
+** Debug
+-- package.json
+"scripts": {
+    "dev": "nodemon src/server.js",
+    "dev:debug": "nodemon --inspect src/server.js"
+  }
+
+-- launch.json (Debug Config)
+{
+  "type": "node",
+  "request": "attach",
+  "name": "Launch Program",
+  "restart": true,
+  "protocol": "inspector"
+}
+
+*******************
+*****  DOCKER *****
+*******************
+follow the instructions on site https://docs.docker.com to install docker
+
+** Docker Images
+--Postgres
+follow the instructions on site https://hub.docker.com/_/postgres
+
+** Docker commands
+-- start machine
+docker start <name>
+
+-- stop machine
+docker stop <name>
+
+-- show all machines
+docker ps -a
+
+-- show all running machines
+docker ps
+
+** Postgres interface client
+postbird
+
+******************
+***** VSCODE *****
+******************
+** ESLINT
+
+-- add eslint to project
+yarn add -D eslint
+
+-- init eslint config
+yarn eslint --init
+
+-- eslint config (steps)
+? How would you like to use ESLint?
+To check syntax, find problems and enforce code style
+
+? What type of modules does your project use?
+JavaScript modules (import/export)
+
+? Which framework does your project use?
+None of these
+
+? Where does your code run?
+Node
+
+? How would you like to define a style for your project?
+Use a popular style guide
+
+? Which style guide do you want to follow?
+Airbnb || Standard
+
+? What format do you want of your config file to be in?
+JavaScript
+
+-- congig file (.eslintrc)
+module.exports = {
+  env: {
+    es6: true,
+    node: true
+  },
+  extends: [
+    'standard',
+    'prettier'
+  ],
+  plugins: ['prettier'],
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly'
+  },
+  parserOptions: {
+    ecmaVersion: 2018,
+    sourceType: 'module'
+  },
+  rules: {
+    "prettier/prettier": "error",
+    "quotes": ["error", "single"],
+    "object-curly-spacing": [2, "always"],
+    "semi": [2, "never"],
+    "no-unused-vars": ["error", { "argsIgnorePattern": "next" }]
+  }
+}
+
+** PRETTIER
+
+-- add prettier
+yarn add prettier eslint-config-prettier eslint-plugin-prettier -D
+
+-- add prettier config
+crate a file .prettierrc.js on project root with the follow rules
+module.exports = {
+  trailingComma: "es5",
+  tabWidth: 4,
+  semi: false,
+  singleQuote: true
+}
+
+*********************
+***** SEQUELIZE *****
+*********************
+-- install sequelize
+yarn add sequelize
+
+-- install sequelize cli
+yarn add sequelize-cli -D
+
+-- install postgres modules to sequelize
+yarn add pg pg-hstore
+
+-- creating migrations with sequelize cli
+yarn sequelize migration:create --name=create-users
+
+-- run migrations
+yarn sequelize db:migrate
+
+-- rollback migrations
+yarn sequelizer db:migrate:undo
+
+-- sequelize file config
+create a file named a .sequelizerc
+
+const { resolve } = require('path')
+
+module.exports = {
+  config: resolve(__dirname, 'src', 'config', 'database.js'),
+  'models-path': resolve(__dirname, 'src', 'app', 'models'),
+  'migrations-path': resolve(__dirname, 'src', 'database', 'migrations'),
+  'seeders-path': resolve(__dirname, 'src', 'database', 'seeders')
+}
+
+******************
+***** BCRYPT *****
+******************
+used to encrypt user password in model, through sequelize hooks
+Ex.:
+this.addHook('beforeSave', async user => {
+    if (user.password) {
+        user.password_hash = await bcrypt.hash(user.password, 8)
+    }
+})h
+
+*************
+**** JWT ****
+*************
+used to authenticate private routes
+
+-- steps
+define secret key
+define expiration token config (ex. 7d)
+create a session controller with rules to generate a session token
+create a middleware that validates private routes
+
+****************
+**** Multer ****
+****************
+used to upload files to the application
+
+-- install multer
+yarn add multer
+
+-- create a config file
+import multer from 'multer'
+import crypo from 'crypto'
+import {extname, resolve} from 'path
+
+export default {
+    storage: multer.diskStorage({
+        destination: resolve(__dirname, '..', '..', 'tmp', 'uploads'),
+        filename: (req, file, cb) => {
+          crypto.randonBytes(16, (err, res) => {
+            if (err) return cb(err)
+        
+            return cb(null, res.toString('hex') + extname(file.originalname))
+          })          
+        }
+    })
+}
+ 
+
+
+
+
+
+
+

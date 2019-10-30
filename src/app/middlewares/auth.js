@@ -24,7 +24,7 @@ export default (req, res, next) => {
     }
     const { id } = decoded
     req.userID = id
-    console.log(decoded)
+    // console.log(decoded)
     next()
   })
 }
