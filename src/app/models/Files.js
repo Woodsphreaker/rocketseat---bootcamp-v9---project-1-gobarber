@@ -11,6 +11,8 @@ class File extends Model {
         sequelize: connection,
       }
     )
+
+    return this
   }
 }
 
