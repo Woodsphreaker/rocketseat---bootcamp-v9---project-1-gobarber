@@ -18,7 +18,7 @@ class Database {
     models.map(
       model => model.associate && model.associate(this.connection.models)
     )
-    console.log(this.connection.models)
+    // console.log(this.connection.models)
   }
 }
 

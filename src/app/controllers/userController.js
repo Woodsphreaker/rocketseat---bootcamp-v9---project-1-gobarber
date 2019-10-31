@@ -1,7 +1,17 @@
 import Users from '../models/Users'
 import * as Yup from 'yup'
 
-const index = () => {}
+const index = async (req, res) => {
+  const users = await Users.findAll({
+    attributes: ['id', 'name', 'email', 'provider'],
+  })
+
+  if (!users) {
+    return res.status(400).json({ error: 'No users found' })
+  }
+
+  return res.json(users)
+}
 
 const show = () => {}
 
@@ -25,9 +35,9 @@ const update = async (req, res) => {
   }
 
   const { email, oldPassword } = req.body
-  const { userID } = req
+  const { id } = req.params
 
-  const user = await Users.findByPk(userID)
+  const user = await Users.findByPk(id)
 
   if (email !== user.email) {
     const exists = await Users.findOne({ where: { email } })
@@ -41,7 +51,7 @@ const update = async (req, res) => {
     return res.status(401).json({ error: 'password incorrect' })
   }
 
-  const { id, name, provider } = await user.update(req.body)
+  const { name, provider } = await user.update(req.body)
 
   res.json({
     id,
