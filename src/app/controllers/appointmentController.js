@@ -1,16 +1,42 @@
 import Appointment from '../models/Appointments'
 import User from '../models/Users'
+import File from '../models/Files'
 import { startOfHour, parseISO, isBefore } from 'date-fns'
 import * as Yup from 'yup'
 
 const index = async (req, res) => {
+  const { userID } = req
+
   const appointment = await Appointment.findAll({
-    attributes: ['id', 'date'],
-    include: {
-      model: User,
-      attributes: [],
-      as: 'user',
-    },
+    where: { user_id: userID, canceled_at: null },
+    order: ['date'],
+    // attributes: ['id', 'date'],
+    include: [
+      {
+        model: User,
+        attributes: ['id', 'name'],
+        as: 'user',
+        include: [
+          {
+            model: File,
+            attributes: ['url', 'path'],
+            as: 'avatar',
+          },
+        ],
+      },
+      {
+        model: User,
+        attributes: ['id', 'name'],
+        as: 'provider',
+        include: [
+          {
+            model: File,
+            attributes: ['url', 'path'],
+            as: 'avatar',
+          },
+        ],
+      },
+    ],
   })
 
   return res.json(appointment)
@@ -26,6 +52,7 @@ const store = async (req, res) => {
     return res.status(400).json({ error: 'Validation fails' })
   }
 
+  // eslint-disable-next-line camelcase
   const { provider_id, date } = req.body
   const { userID } = req
 
