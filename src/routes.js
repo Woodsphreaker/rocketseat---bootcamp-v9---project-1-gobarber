@@ -5,6 +5,7 @@ import userController from './app/controllers/userController'
 import providersController from './app/controllers/providerController'
 import sessionController from './app/controllers/sessionContoller'
 import fileController from './app/controllers/fileController'
+import appointmenController from './app/controllers/appointmentController'
 
 // Middlewares
 import auth from './app/middlewares/auth'
@@ -23,6 +24,10 @@ router.put('/users/:id', userController.update)
 
 // providers
 router.get('/providers', providersController.index)
+
+// appointments
+router.get('/appointments', appointmenController.index)
+router.post('/appointments', appointmenController.store)
 
 // file
 router.post('/file', upload, fileController.store)
