@@ -1,12 +1,12 @@
-import Users from '../models/Users'
-import Files from '../models/Files'
+import User from '../models/Users'
+import File from '../models/Files'
 
 const index = async (req, res) => {
-  const providers = await Users.findAll({
+  const providers = await User.findAll({
     where: { provider: true },
     attributes: ['id', 'name', 'email', 'avatar_id'],
     include: {
-      model: Files,
+      model: File,
       attributes: ['id', 'name', 'path', 'url'],
       as: 'avatar',
     },

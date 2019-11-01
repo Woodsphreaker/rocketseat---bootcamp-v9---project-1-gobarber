@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import auth from '../../config/auth'
 import * as Yup from 'yup'
-import Users from '../models/Users'
+import User from '../models/Users'
 
 const store = async (req, res) => {
   const schema = Yup.object().shape({
@@ -19,7 +19,7 @@ const store = async (req, res) => {
 
   const { email, password } = req.body
 
-  const user = await Users.findOne({ where: { email } })
+  const user = await User.findOne({ where: { email } })
 
   if (!user) {
     return res.status(401).json({ error: 'user not found' })

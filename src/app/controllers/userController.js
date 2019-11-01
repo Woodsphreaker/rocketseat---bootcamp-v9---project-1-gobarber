@@ -1,8 +1,8 @@
-import Users from '../models/Users'
+import User from '../models/Users'
 import * as Yup from 'yup'
 
 const index = async (req, res) => {
-  const users = await Users.findAll({
+  const users = await User.findAll({
     attributes: ['id', 'name', 'email', 'provider'],
   })
 
@@ -37,10 +37,10 @@ const update = async (req, res) => {
   const { email, oldPassword } = req.body
   const { id } = req.params
 
-  const user = await Users.findByPk(id)
+  const user = await User.findByPk(id)
 
   if (email !== user.email) {
-    const exists = await Users.findOne({ where: { email } })
+    const exists = await User.findOne({ where: { email } })
 
     if (exists) {
       return res.status(400).send({ error: 'User already exists' })
@@ -75,13 +75,13 @@ const store = async (req, res) => {
     return res.status(400).json({ erro: 'Validation failed' })
   }
 
-  const exists = await Users.findOne({ where: { email: req.body.email } })
+  const exists = await User.findOne({ where: { email: req.body.email } })
 
   if (exists) {
     return res.status(400).send({ error: 'User already exists' })
   }
 
-  const { name, email, provider } = await Users.create(req.body)
+  const { name, email, provider } = await User.create(req.body)
   return res.send({
     name,
     email,
