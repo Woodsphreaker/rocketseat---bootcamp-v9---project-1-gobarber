@@ -1,8 +1,10 @@
 import Appointment from '../models/Appointments'
 import User from '../models/Users'
 import File from '../models/Files'
-import { startOfHour, parseISO, isBefore } from 'date-fns'
+import { startOfHour, parseISO, isBefore, format } from 'date-fns'
+import pt from 'date-fns/locale/pt'
 import * as Yup from 'yup'
+import Notification from '../schemas/Notifications'
 
 const index = async (req, res) => {
   const { userID } = req
@@ -94,6 +96,19 @@ const store = async (req, res) => {
     date: hourStart,
     user_id: userID,
     provider_id,
+  })
+
+  /*
+   * Notify appointment provider
+   */
+  const { name } = await User.findByPk(userID)
+  const formatedDate = format(hourStart, "'dia' dd 'de' MMMM', às' H:mm'h'", {
+    locale: pt,
+  })
+  console.log(formatedDate)
+  await Notification.create({
+    content: `Novo agendamento para o cliente ${name} para o ${formatedDate} `,
+    user: provider_id,
   })
 
   return res.json(appointment)
