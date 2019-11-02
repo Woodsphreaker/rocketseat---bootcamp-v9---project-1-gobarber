@@ -70,6 +70,14 @@ const store = async (req, res) => {
     return res.status(401).json({ error: 'this user is not a provider' })
   }
 
+  // check if userID is same a provider id
+  // eslint-disable-next-line camelcase
+  if (provider_id === userID) {
+    return res.status(400).json({
+      error: 'a service provider cant schedule something for himself ',
+    })
+  }
+
   // check if date is a past date
   const hourStart = startOfHour(parseISO(date))
 
