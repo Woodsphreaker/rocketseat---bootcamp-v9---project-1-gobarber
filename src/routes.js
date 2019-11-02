@@ -5,7 +5,8 @@ import userController from './app/controllers/userController'
 import providersController from './app/controllers/providerController'
 import sessionController from './app/controllers/sessionContoller'
 import fileController from './app/controllers/fileController'
-import appointmenController from './app/controllers/appointmentController'
+import appointmentController from './app/controllers/appointmentController'
+import scheduleController from './app/controllers/scheduleController'
 
 // Middlewares
 import auth from './app/middlewares/auth'
@@ -26,8 +27,11 @@ router.put('/users/:id', userController.update)
 router.get('/providers', providersController.index)
 
 // appointments
-router.get('/appointments', appointmenController.index)
-router.post('/appointments', appointmenController.store)
+router.get('/appointments', appointmentController.index)
+router.post('/appointments', appointmentController.store)
+
+// schedules
+router.get('/schedules', scheduleController.index)
 
 // file
 router.post('/file', upload, fileController.store)
