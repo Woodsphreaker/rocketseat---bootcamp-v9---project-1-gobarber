@@ -21,6 +21,7 @@ router.use(auth)
 
 // users
 router.get('/users', userController.index)
+router.get('/users/:id', userController.show)
 router.post('/users', userController.store)
 router.put('/users/:id', userController.update)
 
@@ -36,6 +37,7 @@ router.get('/schedules', scheduleController.index)
 
 // notifications
 router.get('/notifications', notificationController.index)
+router.put('/notifications/:notificationID', notificationController.update)
 
 // file
 router.post('/file', upload, fileController.store)

@@ -24,4 +24,20 @@ const index = async (req, res) => {
   res.json(notifications)
 }
 
-export default { index }
+const update = async (req, res) => {
+  const { notificationID } = req.params
+  // const { userID } = req
+  const notification = await Notifications.findByIdAndUpdate(
+    notificationID,
+    {
+      read: true,
+    },
+    {
+      new: true, // returns updated record
+    }
+  )
+
+  res.json(notification)
+}
+
+export default { index, update }

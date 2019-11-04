@@ -3,17 +3,31 @@ import * as Yup from 'yup'
 
 const index = async (req, res) => {
   const users = await User.findAll({
-    attributes: ['id', 'name', 'email', 'provider'],
+    attributes: ['id', 'name', 'email', 'provider', 'created_at'],
   })
 
   if (!users) {
     return res.status(400).json({ error: 'No users found' })
   }
 
+  console.log(users[0].dataValues.created_at)
+
   return res.json(users)
 }
 
-const show = () => {}
+const show = async (req, res) => {
+  const { id } = req.params
+  const user = await User.findOne({
+    where: { id },
+    attributes: ['id', 'name', 'email', 'provider', 'created_at'],
+  })
+
+  if (!user) {
+    return res.status(400).json({ error: 'User not found' })
+  }
+
+  return res.json(user)
+}
 
 const update = async (req, res) => {
   const schema = Yup.object().shape({
