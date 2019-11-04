@@ -31,6 +31,7 @@ router.get('/providers', providersController.index)
 // appointments
 router.get('/appointments', appointmentController.index)
 router.post('/appointments', appointmentController.store)
+router.delete('/appointments/:id', appointmentController.destroy)
 
 // schedules
 router.get('/schedules', scheduleController.index)

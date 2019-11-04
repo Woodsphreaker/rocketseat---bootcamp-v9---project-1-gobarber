@@ -1,7 +1,7 @@
 import Appointment from '../models/Appointments'
 import User from '../models/Users'
 import File from '../models/Files'
-import { startOfHour, parseISO, isBefore, format } from 'date-fns'
+import { startOfHour, parseISO, isBefore, format, subHours } from 'date-fns'
 import pt from 'date-fns/locale/pt'
 import * as Yup from 'yup'
 import Notification from '../schemas/Notifications'
@@ -122,4 +122,35 @@ const store = async (req, res) => {
   return res.json(appointment)
 }
 
-export default { index, store }
+const destroy = async (req, res) => {
+  const { id } = req.params
+  const { userID } = req
+
+  const appointment = await Appointment.findByPk(id)
+
+  if (!appointment) {
+    return res.status(400).json({ error: 'This appointment not exists' })
+  }
+
+  if (appointment.user_id !== userID) {
+    return res
+      .status(400)
+      .json({ error: 'You dont have permition to cancel this appointment' })
+  }
+
+  const subTwoHoursToDate = subHours(appointment.date, 2)
+
+  if (isBefore(subTwoHoursToDate, new Date())) {
+    return res.status(400).json({
+      error: 'you can only cancel a schedule up to two hours before it starts',
+    })
+  }
+
+  await appointment.update({
+    canceled_at: new Date(),
+  })
+
+  res.send(appointment)
+}
+
+export default { index, store, destroy }
