@@ -5,6 +5,7 @@ import { startOfHour, parseISO, isBefore, format, subHours } from 'date-fns'
 import pt from 'date-fns/locale/pt'
 import * as Yup from 'yup'
 import Notification from '../schemas/Notifications'
+import Mail from '../../lib/Mail'
 
 const index = async (req, res) => {
   const { userID } = req
@@ -126,7 +127,15 @@ const destroy = async (req, res) => {
   const { id } = req.params
   const { userID } = req
 
-  const appointment = await Appointment.findByPk(id)
+  const appointment = await Appointment.findByPk(id, {
+    include: [
+      {
+        model: User,
+        attributes: ['name', 'email'],
+        as: 'provider',
+      },
+    ],
+  })
 
   if (!appointment) {
     return res.status(400).json({ error: 'This appointment not exists' })
@@ -151,6 +160,12 @@ const destroy = async (req, res) => {
   })
 
   res.send(appointment)
+
+  await Mail.sendMail({
+    to: `${appointment.provider.name} <${appointment.provider.email}>`,
+    subject: 'Agendamento cancelado',
+    text: 'Você tem um novo cancelamento',
+  })
 }
 
 export default { index, store, destroy }
