@@ -15,8 +15,8 @@ const index = async (req, res) => {
     where: { user_id: userID, canceled_at: null },
     order: ['date'],
     attributes: ['id', 'date'],
-    limit: 20, // 20 registers per page
-    offset: (page - 1) * 20,
+    limit: 20, // 20 records per page
+    offset: ((page > 0 ? page : 1) - 1) * 20,
     include: [
       {
         model: User,
@@ -164,8 +164,6 @@ const destroy = async (req, res) => {
     canceled_at: new Date(),
   })
 
-  res.send(appointment)
-
   await Mail.sendMail({
     to: `${appointment.provider.name} <${appointment.provider.email}>`,
     subject: 'Agendamento cancelado',
@@ -178,6 +176,8 @@ const destroy = async (req, res) => {
       }),
     },
   })
+
+  res.send(appointment)
 }
 
 export default { index, store, destroy }

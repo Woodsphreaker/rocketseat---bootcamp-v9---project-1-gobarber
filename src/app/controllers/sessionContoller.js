@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken'
 import auth from '../../config/auth'
 import * as Yup from 'yup'
 import User from '../models/Users'
+import JwtValidation from '../schemas/JwtValidations'
 
 const store = async (req, res) => {
   const schema = Yup.object().shape({
@@ -33,6 +34,21 @@ const store = async (req, res) => {
 
   const token = jwt.sign({ id }, auth.secret, {
     expiresIn: auth.expires,
+  })
+
+  await JwtValidation.findOneAndUpdate(
+    {
+      userID: id,
+      isValid: true,
+    },
+    {
+      isValid: false,
+    }
+  )
+
+  await JwtValidation.create({
+    userID: id,
+    token,
   })
 
   return res.json({

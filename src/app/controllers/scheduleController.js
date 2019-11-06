@@ -17,6 +17,7 @@ const index = async (req, res) => {
   }
 
   const parsedDate = parseISO(date)
+  // console.log(Op)
 
   const schedules = await Appointment.findAll({
     where: {
