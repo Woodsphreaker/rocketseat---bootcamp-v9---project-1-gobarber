@@ -5,7 +5,8 @@ import { startOfHour, parseISO, isBefore, format, subHours } from 'date-fns'
 import pt from 'date-fns/locale/pt'
 import * as Yup from 'yup'
 import Notification from '../schemas/Notifications'
-import Mail from '../../lib/Mail'
+import CancellationMail from '../jobs/cancellationMail'
+import Queue from '../../lib/Queue'
 
 const index = async (req, res) => {
   const { userID } = req
@@ -114,7 +115,7 @@ const store = async (req, res) => {
   const formatedDate = format(hourStart, "'dia' dd 'de' MMMM', às' H:mm'h'", {
     locale: pt,
   })
-  console.log(formatedDate)
+
   await Notification.create({
     content: `Novo agendamento para o cliente ${name} para o ${formatedDate} `,
     user: provider_id,
@@ -164,17 +165,10 @@ const destroy = async (req, res) => {
     canceled_at: new Date(),
   })
 
-  await Mail.sendMail({
-    to: `${appointment.provider.name} <${appointment.provider.email}>`,
-    subject: 'Agendamento cancelado',
-    template: 'cancellation',
-    context: {
-      provider: appointment.provider.name,
-      user: appointment.user.name,
-      date: format(appointment.date, "'dia' dd 'de' MMMM', às' H:mm'h'", {
-        locale: pt,
-      }),
-    },
+  // send email to provider
+
+  Queue.add(CancellationMail.key, {
+    appointment,
   })
 
   res.send(appointment)
