@@ -112,7 +112,7 @@ const store = async (req, res) => {
    * Notify appointment provider
    */
   const { name } = await User.findByPk(userID)
-  const formatedDate = format(hourStart, "'dia' dd 'de' MMMM', às' H:mm'h'", {
+  const formatedDate = format(hourStart, '\'dia\' dd \'de\' MMMM\', às\' H:mm\'h\'', {
     locale: pt,
   })
 
