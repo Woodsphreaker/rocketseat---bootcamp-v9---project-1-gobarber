@@ -8,6 +8,7 @@ import fileController from './app/controllers/fileController'
 import appointmentController from './app/controllers/appointmentController'
 import scheduleController from './app/controllers/scheduleController'
 import notificationController from './app/controllers/notificationsController'
+import availableController from './app/controllers/availableController'
 
 // Middlewares
 import auth from './app/middlewares/auth'
@@ -27,6 +28,7 @@ router.put('/users/:id', userController.update)
 
 // providers
 router.get('/providers', providersController.index)
+router.get('/provider/:providerID/available', availableController.index)
 
 // appointments
 router.get('/appointments', appointmentController.index)

@@ -15,7 +15,7 @@ const index = async (req, res) => {
   const appointment = await Appointment.findAll({
     where: { user_id: userID, canceled_at: null },
     order: ['date'],
-    attributes: ['id', 'date'],
+    attributes: ['id', 'date', 'past', 'cancelable'],
     limit: 20, // 20 records per page
     offset: ((page > 0 ? page : 1) - 1) * 20,
     include: [
