@@ -1,8 +1,11 @@
 import React from 'react'
+import Routes from './routes'
+import GlobalStyles from './styles/globalStyles'
 
 const App = () => (
   <>
-    <h1>Running</h1>
+    <GlobalStyles />
+    <Routes />
   </>
 )
 
