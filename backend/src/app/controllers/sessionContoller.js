@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken'
 import auth from '../../config/auth'
 import * as Yup from 'yup'
 import User from '../models/Users'
+import File from '../models/Files'
 import JwtValidation from '../schemas/JwtValidations'
 
 const store = async (req, res) => {
@@ -20,7 +21,16 @@ const store = async (req, res) => {
 
   const { email, password } = req.body
 
-  const user = await User.findOne({ where: { email } })
+  const user = await User.findOne({
+    where: { email },
+    include: [
+      {
+        model: File,
+        as: 'avatar',
+        attributes: ['path', 'id', 'url'],
+      },
+    ],
+  })
 
   if (!user) {
     return res.status(401).json({ error: 'user not found' })
@@ -30,7 +40,7 @@ const store = async (req, res) => {
     return res.status(401).json({ error: 'user or password incorrect' })
   }
 
-  const { id, name } = user
+  const { id, name, avatar, provider } = user
 
   const token = jwt.sign({ id }, auth.secret, {
     expiresIn: auth.expires,
@@ -56,6 +66,8 @@ const store = async (req, res) => {
       id,
       name,
       email,
+      provider,
+      avatar,
     },
     token,
   })

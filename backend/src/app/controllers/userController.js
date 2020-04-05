@@ -1,4 +1,5 @@
 import User from '../models/Users'
+import File from '../models/Files'
 import * as Yup from 'yup'
 
 const index = async (req, res) => {
@@ -10,7 +11,7 @@ const index = async (req, res) => {
     return res.status(400).json({ error: 'No users found' })
   }
 
-  console.log(users[0].dataValues.created_at)
+  // console.log(users[0].dataValues.created_at)
 
   return res.json(users)
 }
@@ -65,12 +66,22 @@ const update = async (req, res) => {
     return res.status(401).json({ error: 'password incorrect' })
   }
 
-  const { name, provider } = await user.update(req.body)
+  await user.update(req.body)
+
+  const { name, provider, avatar } = await User.findByPk(id, {
+    include: [
+      {
+        model: File,
+        as: 'avatar',
+      },
+    ],
+  })
 
   res.json({
     id,
     name,
     provider,
+    avatar,
   })
 }
 
