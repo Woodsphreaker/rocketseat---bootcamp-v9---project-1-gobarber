@@ -12,7 +12,8 @@
     ],
     "globals": {
       "Atomics": "readonly",
-      "SharedArrayBuffer": "readonly"
+      "SharedArrayBuffer": "readonly",
+      "__DEV__": true
     },
     "parser": "babel-eslint",
     "parserOptions": {
@@ -25,7 +26,9 @@
     "plugins": [
       "react",
       "prettier",
-      "react-hooks"
+      "react-hooks",
+      "import",
+      "jsx-a11y"
     ],
     "rules": {
       "prettier/prettier": "error",

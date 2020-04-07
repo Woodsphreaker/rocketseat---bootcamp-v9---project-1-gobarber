@@ -1,11 +1,17 @@
 import React from 'react'
+import { Router } from 'react-router-dom'
 import Routes from './routes'
+import history from './services/history'
 import GlobalStyles from './styles/globalStyles'
+
+import './config/ReactotronConfig'
 
 const App = () => (
   <>
     <GlobalStyles />
-    <Routes />
+    <Router history={history}>
+      <Routes />
+    </Router>
   </>
 )
 
