@@ -10,10 +10,10 @@ import Profile from '../pages/Profile'
 
 const Routes = () => (
   <Switch>
-    <RouteWrapper path="/" exact component={SignIn} />
-    <RouteWrapper path="/register" exact component={SignUp} />
-    <RouteWrapper path="/dash" exact component={Dashboard} isPrivate login />
-    <RouteWrapper path="/profile" exact component={Profile} isPrivate login />
+    <RouteWrapper path="/" exact component={SignIn} logged />
+    <RouteWrapper path="/register" exact component={SignUp} logged />
+    <RouteWrapper path="/dash" exact component={Dashboard} isPrivate logged />
+    <RouteWrapper path="/profile" exact component={Profile} isPrivate logged />
     <Route path="*" render={() => <h1>Not Found</h1>} />
   </Switch>
 )
