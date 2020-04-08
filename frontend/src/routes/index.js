@@ -10,7 +10,7 @@ import Profile from '../pages/Profile'
 
 const Routes = () => (
   <Switch>
-    <RouteWrapper path="/" exact component={SignIn} logged />
+    <RouteWrapper path="/" exact component={SignIn} />
     <RouteWrapper path="/register" exact component={SignUp} logged />
     <RouteWrapper path="/dash" exact component={Dashboard} isPrivate logged />
     <RouteWrapper path="/profile" exact component={Profile} isPrivate logged />

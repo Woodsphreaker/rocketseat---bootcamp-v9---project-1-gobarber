@@ -1,5 +1,8 @@
 import styled from 'styled-components'
 
-const Container = styled.div.attrs((props) => {})``
+const Wrapper = styled.div.attrs((props) => {})`
+  height: 100%;
+  background: #999;
+`
 
-export { Container }
+export { Wrapper }

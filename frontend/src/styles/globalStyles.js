@@ -11,21 +11,31 @@ export default createGlobalStyle`
     box-sizing: border-box
   }
 
-  body {
-    min-height: 100%
+  *:focus {
+    outline: 0;
+  }
+
+  html, body, #root {
+    height: 100%
   }
 
   body {
-    font-size: 400 14px;
+    font-size: 14px;
     font-family: Roboto, sans-serif;
-    background-color: #f0f0f0;
     -web-kit-smoothing: antialised !important
   }
 
   body, input, textarea, button {
-    color: #222;
-    font-size: 400 18px;
+    font-size: 14px;
     font-family: Roboto, sans-serif;
+  }
+
+  a {
+    text-decoration: none
+  }
+
+  ul {
+    list-style: none
   }
 
   button {
