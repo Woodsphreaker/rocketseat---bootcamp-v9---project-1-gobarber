@@ -14,8 +14,6 @@ const RouteWrapper = ({ component: Component, isPrivate, logged, ...rest }) => {
   return <Route {...rest} render={(props) => <Component {...props} />} />
 }
 
-export default RouteWrapper
-
 RouteWrapper.propTypes = {
   isPrivate: PropTypes.bool,
   logged: PropTypes.bool,
@@ -27,3 +25,5 @@ RouteWrapper.defaultProps = {
   logged: false,
   isPrivate: false,
 }
+
+export default RouteWrapper

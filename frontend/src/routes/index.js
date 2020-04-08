@@ -1,7 +1,7 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
-import RouteWrapper from './Private'
+import RouteWrapper from './RouteWrapper'
 
 import SignIn from '../pages/SignIn'
 import SignUp from '../pages/SignUp'
