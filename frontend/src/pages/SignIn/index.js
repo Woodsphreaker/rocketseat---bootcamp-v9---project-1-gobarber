@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Form, Input } from '@rocketseat/unform'
 import * as Yup from 'yup'
+import { connect } from 'react-redux'
 
 import Logo from '~/assets/img/logo.svg'
 
@@ -14,7 +15,7 @@ const schema = Yup.object().shape({
     .required('A Senha é obrigatória'),
 })
 
-export default function SignIn() {
+const SignIn = () => {
   const handleSubmit = (data) => {
     console.tron.log(data)
   }
@@ -31,3 +32,5 @@ export default function SignIn() {
     </>
   )
 }
+
+export default connect()(SignIn)
