@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 
-import Mod1 from './mod1/reducer'
-import Mod2 from './mod2/reducer'
+// import Mod1 from './mod1/reducer'
+// import Mod2 from './mod2/reducer'
+import Auth from './auth/reducer'
 
 export default combineReducers({
-  Mod1,
-  Mod2,
+  Auth,
 })

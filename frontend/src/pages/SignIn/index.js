@@ -2,7 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Form, Input } from '@rocketseat/unform'
 import * as Yup from 'yup'
+
+// Redux
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as Actions from '~/store/modules/mod2/actions'
 
 import Logo from '~/assets/img/logo.svg'
 
@@ -15,9 +19,13 @@ const schema = Yup.object().shape({
     .required('A Senha é obrigatória'),
 })
 
-const SignIn = () => {
+const SignIn = (props) => {
   const handleSubmit = (data) => {
     console.tron.log(data)
+  }
+
+  const handleClick = (action) => {
+    action({ newData: 1 })
   }
 
   return (
@@ -33,4 +41,11 @@ const SignIn = () => {
   )
 }
 
-export default connect()(SignIn)
+const mapStateToProps = (state) => ({
+  Mod1: state.Mod1,
+  Mod2: state.Mod2,
+})
+
+const mapDispatchToProps = (dispatch) => bindActionCreators(Actions, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

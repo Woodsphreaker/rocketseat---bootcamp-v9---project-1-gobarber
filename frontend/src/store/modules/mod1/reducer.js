@@ -1,4 +1,6 @@
-const Mod1 = (state = [], action) => {
+const INITIAL_STATE = []
+
+const Mod1 = (state = INITIAL_STATE, action) => {
   const { type } = action
   const actions = {
     '@Mod1Add': () => {
