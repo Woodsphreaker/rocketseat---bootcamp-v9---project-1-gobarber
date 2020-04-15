@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom'
 import { Form, Input } from '@rocketseat/unform'
 import * as Yup from 'yup'
 
-// Redux
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as Actions from '~/store/modules/mod2/actions'
+// // Redux
+// import { connect } from 'react-redux'
+// import { bindActionCreators } from 'redux'
+import { useDispatch, useSelector } from 'react-redux'
+import * as AuthActions from '~/store/modules/auth/actions'
 
 import Logo from '~/assets/img/logo.svg'
 
@@ -19,14 +20,18 @@ const schema = Yup.object().shape({
     .required('A Senha é obrigatória'),
 })
 
-const SignIn = (props) => {
+const SignIn = () => {
+  const dispatch = useDispatch()
+
   const handleSubmit = (data) => {
-    console.tron.log(data)
+    const { email, password } = data
+    dispatch(AuthActions.signInRequest(email, password))
   }
 
-  const handleClick = (action) => {
-    action({ newData: 1 })
-  }
+  const handleClick = () => {}
+
+  const myData = useSelector((state) => state.Auth)
+  console.tron.log('useSelector', myData)
 
   return (
     <>
@@ -41,11 +46,13 @@ const SignIn = (props) => {
   )
 }
 
-const mapStateToProps = (state) => ({
-  Mod1: state.Mod1,
-  Mod2: state.Mod2,
-})
+export default SignIn
 
-const mapDispatchToProps = (dispatch) => bindActionCreators(Actions, dispatch)
+// const mapStateToProps = (state) => ({
+//   Mod1: state.Mod1,
+//   Mod2: state.Mod2,
+// })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
+// const mapDispatchToProps = (dispatch) => bindActionCreators(Actions, dispatch)
+
+// export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

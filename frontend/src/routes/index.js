@@ -12,8 +12,8 @@ const Routes = () => (
   <Switch>
     <RouteWrapper path="/" exact component={SignIn} />
     <RouteWrapper path="/register" exact component={SignUp} />
-    <RouteWrapper path="/dash" exact component={Dashboard} isPrivate logged />
-    <RouteWrapper path="/profile" exact component={Profile} isPrivate logged />
+    <RouteWrapper path="/dash" exact component={Dashboard} isPrivate />
+    <RouteWrapper path="/profile" exact component={Profile} isPrivate />
     <Route path="*" render={() => <h1>Not Found</h1>} />
   </Switch>
 )
