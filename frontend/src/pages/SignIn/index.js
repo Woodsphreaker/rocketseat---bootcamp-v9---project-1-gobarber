@@ -28,10 +28,8 @@ const SignIn = () => {
     dispatch(AuthActions.signInRequest(email, password))
   }
 
-  const handleClick = () => {}
-
-  const myData = useSelector((state) => state.Auth)
-  console.tron.log('useSelector', myData)
+  // const myData = useSelector((state) => state.Auth)
+  // console.tron.log('useSelector', myData)
 
   return (
     <>

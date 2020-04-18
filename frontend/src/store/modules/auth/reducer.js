@@ -9,8 +9,8 @@ const Auth = (state = INITIAL_STATE, action) => {
 
   const actions = {
     '@auth/SIGN_IN_SUCCESS': ({ payload }) => {
-      const { token, user } = payload
-      return { ...state, token, user, signed: true }
+      const { token } = payload
+      return { ...state, token, signed: true }
     },
     default: () => state,
   }
