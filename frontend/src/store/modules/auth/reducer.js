@@ -1,13 +1,16 @@
-const INITIAL_STATE = {}
+const INITIAL_STATE = {
+  token: null,
+  user: null,
+  signed: false,
+}
 
 const Auth = (state = INITIAL_STATE, action) => {
   const { type } = action
 
   const actions = {
     '@auth/SIGN_IN_SUCCESS': ({ payload }) => {
-      // console.tron.log('Lorem Ipsum', payload)
       const { token, user } = payload
-      return { ...state, token, signed: true }
+      return { ...state, token, user, signed: true }
     },
     default: () => state,
   }
