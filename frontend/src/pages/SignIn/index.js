@@ -22,6 +22,7 @@ const schema = Yup.object().shape({
 
 const SignIn = () => {
   const dispatch = useDispatch()
+  const loading = useSelector((state) => state.Auth.loading)
 
   const handleSubmit = (data) => {
     const { email, password } = data
@@ -37,7 +38,9 @@ const SignIn = () => {
       <Form schema={schema} onSubmit={handleSubmit}>
         <Input name="email" type="email" placeholder="Seu e-mail" />
         <Input name="password" type="password" placeholder="Sua senha" />
-        <button type="submit">Acessar</button>
+        <button disabled={loading} type="submit">
+          {loading ? 'Aguarde ...' : 'Acessar'}
+        </button>
         <Link to="/register">Não tenho cadastro</Link>
       </Form>
     </>
