@@ -18,4 +18,15 @@ const signFailure = () => {
   }
 }
 
-export { signInRequest, signInSuccess, signFailure }
+const signUpRequest = (name, email, password) => {
+  return {
+    type: '@auth/SIGN_UP_REQUEST',
+    payload: {
+      name,
+      email,
+      password,
+    },
+  }
+}
+
+export { signInRequest, signInSuccess, signFailure, signUpRequest }

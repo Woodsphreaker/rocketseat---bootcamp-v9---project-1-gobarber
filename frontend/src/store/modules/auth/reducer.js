@@ -19,6 +19,9 @@ const Auth = (state = INITIAL_STATE, action) => {
     '@auth/SIGN_FAILURE': () => {
       return { ...state, loading: false }
     },
+    '@auth/SIGN_UP_REQUEST': () => {
+      return { ...state, loading: true }
+    },
     default: () => state,
   }
 
