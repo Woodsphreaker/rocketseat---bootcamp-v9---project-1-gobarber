@@ -1,9 +1,12 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import api from '~/services/api'
 // import { Container } from './styles';
 
 export default function Dashsboard() {
   const history = useHistory()
+
+  api.get('users')
 
   return (
     <>

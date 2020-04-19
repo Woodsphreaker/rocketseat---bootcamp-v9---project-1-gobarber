@@ -31,7 +31,7 @@ const SignUp = () => {
   return (
     <>
       <img alt="GoBarber" src={Logo} />
-      <Form onSubmit={handleSubmit}>
+      <Form schema={schema} onSubmit={handleSubmit}>
         <Input name="name" type="text" placeholder="Seu nome completo" />
         <Input name="email" type="email" placeholder="Seu e-mail" />
         <Input name="password" type="password" placeholder="Sua senha" />

@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 import api from '~/services/api'
 import history from '~/services/history'
 import { signInRequest, signInSuccess, signFailure } from './actions'
+import { setToken } from '~/utils/tokenManagement'
 
 import delay from '~/utils/delay'
 
@@ -16,7 +17,10 @@ function* signIn({ email, password }) {
       yield false
     }
 
-    toast.success(`Login efetuado com sucesso. Bem vindo(a) ${user.name} !`)
+    toast.success(`Login efetuado com sucesso. Bem vindo(a) ${user.name} !`, {
+      autoClose: 8000,
+    })
+    setToken(token)
     yield put(signInSuccess(token, user))
     history.push('/dash')
   } catch (error) {
