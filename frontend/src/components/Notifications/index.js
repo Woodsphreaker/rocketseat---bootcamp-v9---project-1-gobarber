@@ -1,7 +1,13 @@
 import React from 'react'
 import { MdNotifications } from 'react-icons/md'
 
-import { Container, Badge, NotificationList, Notification } from './styles'
+import {
+  Container,
+  Badge,
+  NotificationList,
+  Scroll,
+  Notification,
+} from './styles'
 
 export default function Notifications() {
   return (
@@ -11,13 +17,15 @@ export default function Notifications() {
       </Badge>
 
       <NotificationList>
-        {[...Array(20)].map((el, i) => (
-          <Notification unread={i === 0 || false} key={`notification-${el}`}>
-            <p>Você tem um novo agendamento para amanhã</p>
-            <time>há 2 dias</time>
-            <button type="button">Marcar como lida</button>
-          </Notification>
-        ))}
+        <Scroll>
+          {[...Array(20)].map((el, i) => (
+            <Notification unread={i === 0 || false} key={`notification-${el}`}>
+              <p>Você tem um novo agendamento para amanhã</p>
+              <time>há 2 dias</time>
+              <button type="button">Marcar como lida</button>
+            </Notification>
+          ))}
+        </Scroll>
       </NotificationList>
     </Container>
   )
