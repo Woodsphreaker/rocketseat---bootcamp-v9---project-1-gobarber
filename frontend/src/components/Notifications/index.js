@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { MdNotifications } from 'react-icons/md'
 import { parseISO, formatDistance } from 'date-fns'
 import pt from 'date-fns/locale/pt-BR'
@@ -16,13 +16,14 @@ import {
 export default function Notifications() {
   const [visible, setVisible] = useState(false)
   const [notifications, setNotifications] = useState([])
+  const [hasUnread, setHasUnread] = useState(false)
 
   const handleToggleVisible = () => {
     setVisible(!visible)
   }
 
-  const prepareData = (notifications) => {
-    return notifications.map((notification) => ({
+  const prepareData = (notificationsData) => {
+    return notificationsData.map((notification) => ({
       ...notification,
       timeDistance: formatDistance(
         parseISO(notification.createdAt),
@@ -32,15 +33,21 @@ export default function Notifications() {
     }))
   }
 
-  const getNotifications = async () => {
+  const hasUnreadNotifications = (notificationsData) => {
+    console.log('read')
+    return notificationsData.some(({ read }) => !read)
+  }
+
+  const getNotifications = useCallback(async () => {
     try {
       const { data } = await api.get('notifications')
       const formatedData = prepareData(data)
       setNotifications(formatedData)
+      setHasUnread(hasUnreadNotifications(data))
     } catch (error) {
       console.tron.error(error)
     }
-  }
+  }, [])
 
   const handleNotificationRead = async (notificationID) => {
     try {
@@ -53,13 +60,11 @@ export default function Notifications() {
 
   useEffect(() => {
     getNotifications()
-  }, [])
-
-  console.log(notifications)
+  }, [getNotifications])
 
   return (
     <Container>
-      <Badge onClick={handleToggleVisible} hasUnread>
+      <Badge onClick={handleToggleVisible} hasUnread={hasUnread}>
         <MdNotifications color="#7159c1" size={20} />
       </Badge>
 
