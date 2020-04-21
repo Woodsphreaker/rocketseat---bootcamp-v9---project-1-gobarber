@@ -18,13 +18,13 @@ const router = Router()
 
 router.post('/session', sessionController.store)
 
-router.use(auth)
-
 // users
 router.get('/users', userController.index)
 router.get('/users/:id', userController.show)
 router.post('/users', userController.store)
 router.put('/users/:id', userController.update)
+
+router.use(auth)
 
 // providers
 router.get('/providers', providersController.index)

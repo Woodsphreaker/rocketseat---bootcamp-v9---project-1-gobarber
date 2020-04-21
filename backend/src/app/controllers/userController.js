@@ -30,6 +30,35 @@ const show = async (req, res) => {
   return res.json(user)
 }
 
+const store = async (req, res) => {
+  const schema = Yup.object().shape({
+    name: Yup.string().required(),
+    email: Yup.string()
+      .email()
+      .required(),
+    password: Yup.string()
+      .min(6)
+      .required(),
+  })
+
+  if (!(await schema.isValid(req.body))) {
+    return res.status(400).json({ erro: 'Validation failed' })
+  }
+
+  const exists = await User.findOne({ where: { email: req.body.email } })
+
+  if (exists) {
+    return res.status(400).send({ error: 'User already exists' })
+  }
+
+  const { name, email, provider } = await User.create(req.body)
+  return res.send({
+    name,
+    email,
+    provider,
+  })
+}
+
 const update = async (req, res) => {
   const schema = Yup.object().shape({
     name: Yup.string(),
@@ -82,35 +111,6 @@ const update = async (req, res) => {
     name,
     provider,
     avatar,
-  })
-}
-
-const store = async (req, res) => {
-  const schema = Yup.object().shape({
-    name: Yup.string().required(),
-    email: Yup.string()
-      .email()
-      .required(),
-    password: Yup.string()
-      .min(6)
-      .required(),
-  })
-
-  if (!(await schema.isValid(req.body))) {
-    return res.status(400).json({ erro: 'Validation failed' })
-  }
-
-  const exists = await User.findOne({ where: { email: req.body.email } })
-
-  if (exists) {
-    return res.status(400).send({ error: 'User already exists' })
-  }
-
-  const { name, email, provider } = await User.create(req.body)
-  return res.send({
-    name,
-    email,
-    provider,
   })
 }
 
