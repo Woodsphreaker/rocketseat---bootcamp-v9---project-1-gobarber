@@ -1,8 +1,21 @@
-const Add = (user) => {
+const profileUpdateRequest = (userAttributes) => {
   return {
-    type: '@user/ADD_USER',
-    payload: user,
+    type: '@user/PROFILE_UPDATE_REQUEST',
+    payload: userAttributes,
   }
 }
 
-export { Add }
+const profileUpdateSuccess = (userProfile) => {
+  return {
+    type: '@user/PROFILE_UPDATE_SUCCESS',
+    payload: userProfile,
+  }
+}
+
+const profileUpdateFailed = () => {
+  return {
+    type: '@user/PROFILE_UPDATE_FAILED',
+  }
+}
+
+export { profileUpdateRequest, profileUpdateSuccess, profileUpdateFailed }
