@@ -34,7 +34,6 @@ export default function Notifications() {
   }
 
   const hasUnreadNotifications = (notificationsData) => {
-    console.log('read')
     return notificationsData.some(({ read }) => !read)
   }
 
