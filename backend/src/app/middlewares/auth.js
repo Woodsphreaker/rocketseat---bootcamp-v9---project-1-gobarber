@@ -37,7 +37,6 @@ export default (req, res, next) => {
     }
 
     req.userID = id
-    // console.log(decoded)
     next()
   })
 }

@@ -79,7 +79,7 @@ const update = async (req, res) => {
   }
 
   const { email, oldPassword } = req.body
-  const { id } = req.params
+  const id = req.userID
 
   const user = await User.findByPk(id)
 
@@ -109,6 +109,7 @@ const update = async (req, res) => {
   res.json({
     id,
     name,
+    email,
     provider,
     avatar,
   })

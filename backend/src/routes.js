@@ -22,9 +22,9 @@ router.post('/session', sessionController.store)
 router.get('/users', userController.index)
 router.get('/users/:id', userController.show)
 router.post('/users', userController.store)
-router.put('/users/:id', userController.update)
 
 router.use(auth)
+router.put('/users/', userController.update)
 
 // providers
 router.get('/providers', providersController.index)
