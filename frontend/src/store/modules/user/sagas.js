@@ -4,11 +4,11 @@ import api from '~/services/api'
 
 import { profileUpdateSuccess, profileUpdateFailed } from './actions'
 
-function* updateProfile({ name, email, ...rest }) {
+function* updateProfile({ name, email, avatar_id, ...rest }) {
   try {
     const profile = rest.oldPassword
-      ? { name, email, ...rest }
-      : { name, email }
+      ? { name, email, avatar_id, ...rest }
+      : { name, email, avatar_id }
 
     const { data } = yield call(api.put, 'users', profile)
 

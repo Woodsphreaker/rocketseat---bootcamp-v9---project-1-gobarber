@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Form, Input } from '@rocketseat/unform'
 import * as Yup from 'yup'
 
+import AvatarInput from './AvatarInput'
 import { Container, Content } from './styles'
-
 import { profileUpdateRequest } from '~/store/modules/user/actions'
 
 const FormSchema = Yup.object().shape({
@@ -15,6 +15,7 @@ const FormSchema = Yup.object().shape({
   oldPassword: Yup.string(),
   password: Yup.string(),
   confirmPassword: Yup.string(),
+  avatar_id: Yup.number(),
 })
 
 export default function Profile() {
@@ -34,6 +35,7 @@ export default function Profile() {
             schema={FormSchema}
             onSubmit={handleSubmit}
           >
+            <AvatarInput name="avatar_id" />
             <Input name="name" type="text" placeholder="Nome Completo" />
             <Input
               name="email"
