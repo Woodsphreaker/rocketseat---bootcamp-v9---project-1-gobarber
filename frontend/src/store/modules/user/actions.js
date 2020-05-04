@@ -18,4 +18,15 @@ const profileUpdateFailed = () => {
   }
 }
 
-export { profileUpdateRequest, profileUpdateSuccess, profileUpdateFailed }
+const signOut = () => {
+  return {
+    type: '@auth/SIGN_OUT',
+  }
+}
+
+export {
+  profileUpdateRequest,
+  profileUpdateSuccess,
+  profileUpdateFailed,
+  signOut,
+}

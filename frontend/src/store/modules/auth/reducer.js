@@ -22,6 +22,9 @@ const Auth = (state = INITIAL_STATE, action) => {
     '@auth/SIGN_UP_REQUEST': () => {
       return { ...state, loading: true }
     },
+    '@auth/SIGN_OUT': () => {
+      return { token: null, signed: false }
+    },
     default: () => state,
   }
 

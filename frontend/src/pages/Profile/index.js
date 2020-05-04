@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 
 import AvatarInput from './AvatarInput'
 import { Container, Content } from './styles'
-import { profileUpdateRequest } from '~/store/modules/user/actions'
+import { profileUpdateRequest, signOut } from '~/store/modules/user/actions'
 
 const FormSchema = Yup.object().shape({
   name: Yup.string().required('O nome é um campo requerido'),
@@ -56,7 +56,9 @@ export default function Profile() {
             />
             <button type="submit">Atualizar Perfil</button>
           </Form>
-          <button type="button">Sair do Gobarber</button>
+          <button type="button" onClick={() => dispatch(signOut())}>
+            Sair do Gobarber
+          </button>
         </Content>
       </Container>
     </>

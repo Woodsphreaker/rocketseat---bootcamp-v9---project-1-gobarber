@@ -26,7 +26,11 @@ export default function Header() {
               <Link to="/profile">Perfil</Link>
             </div>
             <img
-              src="https://api.adorable.io/avatars/50/abott@adorable.png"
+              src={
+                avatar
+                  ? avatar.url
+                  : 'https://api.adorable.io/avatars/50/abott@adorable.png'
+              }
               alt={name}
               title={name}
             />

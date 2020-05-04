@@ -16,6 +16,9 @@ const User = (state = INTIAL_STATE, action) => {
     '@user/PROFILE_UPDATE_SUCCESS': ({ payload }) => {
       return { ...state, profile: payload, loading: false }
     },
+    '@auth/SIGN_OUT': () => {
+      return { profile: null }
+    },
     default: () => state,
   }
 
