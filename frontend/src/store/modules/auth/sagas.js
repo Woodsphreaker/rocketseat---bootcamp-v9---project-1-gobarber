@@ -51,7 +51,7 @@ function* signUp({ name, email, password }) {
   }
 }
 
-const siggOut = () => {
+const signOut = () => {
   history.push('/')
 }
 
@@ -59,7 +59,7 @@ function* Sagas() {
   yield all([
     takeLatest('@auth/SIGN_IN_REQUEST', ({ payload }) => signIn(payload)),
     takeLatest('@auth/SIGN_UP_REQUEST', ({ payload }) => signUp(payload)),
-    takeLatest('@auth/SIGN_OUT', () => siggOut()),
+    takeLatest('@auth/SIGN_OUT', () => signOut()),
   ])
 }
 
