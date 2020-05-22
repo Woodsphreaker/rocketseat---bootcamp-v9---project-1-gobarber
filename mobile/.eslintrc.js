@@ -30,4 +30,11 @@ module.exports = {
     'object-curly-spacing': [2, 'always'],
     semi: [2, 'never'],
   },
+  settings: {
+    'import/resolver': {
+      'babel-plugin-root-import': {
+        rootPathSuffix: 'src',
+      },
+    },
+  },
 }
