@@ -5,13 +5,16 @@ import './config/reactotronConfig'
 import Routes from './routes'
 
 import { Provider } from 'react-redux'
-import store from '~/store'
+import { PersistGate } from 'redux-persist/integration/react'
+import { store, persistor } from '~/store'
 
 const App = () => {
   return (
     <Provider store={store}>
-      <StatusBar backgroundColor="#7159c1" barStyle="light-content" />
-      <Routes />
+      <PersistGate persistor={persistor}>
+        <StatusBar backgroundColor="#7159c1" barStyle="light-content" />
+        <Routes />
+      </PersistGate>
     </Provider>
   )
 }
