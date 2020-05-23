@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
 import PropTypes from 'prop-types'
 import Background from '~/components/LinearGradient'
@@ -15,6 +15,8 @@ import {
 const SignIn = (props) => {
   const { navigation } = props
 
+  const inputPasswordRef = useRef()
+
   const gotoPage = (page) => {
     navigation.navigate(page)
   }
@@ -30,11 +32,16 @@ const SignIn = (props) => {
             autoCorrect={false}
             autoCapitalize={false}
             placeholder="Digite seu e-mail"
+            returnKeyType="next"
+            onSubmitEditing={() => inputPasswordRef.current.focus()}
           />
           <TextInput
             iconName="lock-outline"
             secureTextEntry
             placeholder="Digite sua senha"
+            ref={inputPasswordRef}
+            returnKeyType="send"
+            onSubmitEditing={() => gotoPage('SignUp')}
           />
           <SubmitButton loading={false}>Login</SubmitButton>
           <SignLink onPress={() => gotoPage('SignUp')}>
