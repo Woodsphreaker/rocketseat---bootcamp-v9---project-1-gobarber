@@ -4,7 +4,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import Login from '~/pages/login'
 import Dashboard from '~/pages/dashboard'
 import SignIn from '~/pages/signIn'
-import SignOut from '~/pages/signOut'
+import SignUp from '~/pages/signUp'
 
 const Routes = createSwitchNavigator(
   {
@@ -17,8 +17,8 @@ const Routes = createSwitchNavigator(
     SignIn: {
       screen: SignIn,
     },
-    SignOut: {
-      screen: SignOut,
+    SignUp: {
+      screen: SignUp,
     },
   },
   {

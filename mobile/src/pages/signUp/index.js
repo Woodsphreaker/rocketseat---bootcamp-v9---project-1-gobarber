@@ -1,6 +1,6 @@
 import React from 'react'
-
 import PropTypes from 'prop-types'
+
 import Background from '~/components/LinearGradient'
 import logo from '~/assets/logo.png'
 import {
@@ -12,7 +12,7 @@ import {
   SignLink,
 } from './styles'
 
-const SignIn = (props) => {
+const SignUp = (props) => {
   const { navigation } = props
 
   const gotoPage = (page) => {
@@ -25,6 +25,12 @@ const SignIn = (props) => {
         <Image source={logo} />
         <Form>
           <TextInput
+            iconName="person-outline"
+            autoCorrect={false}
+            autoCapitalize={false}
+            placeholder="Digite seu Nome"
+          />
+          <TextInput
             iconName="mail-outline"
             keyboardType="email-address"
             autoCorrect={false}
@@ -36,9 +42,9 @@ const SignIn = (props) => {
             secureTextEntry
             placeholder="Digite sua senha"
           />
-          <SubmitButton loading={false}>Login</SubmitButton>
-          <SignLink onPress={() => gotoPage('SignUp')}>
-            Criar conta gratuita
+          <SubmitButton loading={false}>Cadastrar</SubmitButton>
+          <SignLink onPress={() => gotoPage('SignIn')}>
+            Já tenho cadastro
           </SignLink>
         </Form>
       </Container>
@@ -46,12 +52,8 @@ const SignIn = (props) => {
   )
 }
 
-export default SignIn
+export default SignUp
 
-SignIn.propTypes = {
-  navigation: PropTypes.object,
-}
-
-SignIn.defaultProps = {
-  navigation: {},
+SignUp.propTypes = {
+  navigation: PropTypes.object.isRequired,
 }
