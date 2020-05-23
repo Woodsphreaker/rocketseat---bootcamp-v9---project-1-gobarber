@@ -6,6 +6,7 @@ export const Container = styled.TouchableOpacity`
   border-radius: 4px;
   align-items: center;
   justify-content: center;
+  width: 100%;
 `
 
 export const Text = styled.Text`

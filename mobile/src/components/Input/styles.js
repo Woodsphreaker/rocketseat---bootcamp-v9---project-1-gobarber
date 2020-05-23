@@ -7,7 +7,6 @@ export const Container = styled.View`
   height: 46px;
   background: rgba(0, 0, 0, 0.1);
   align-items: center;
-  margin-top: 10px;
 `
 
 export const Icon = styled(VectorIcon).attrs((props) => {
