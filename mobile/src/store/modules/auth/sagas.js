@@ -39,7 +39,6 @@ function* signUp({ name, email, password }) {
       name,
       email,
       password,
-      provider: true,
     })
 
     Alert.alert(
