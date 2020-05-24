@@ -1,9 +1,11 @@
 import React, { useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Alert } from 'react-native'
 import PropTypes from 'prop-types'
 import * as Yup from 'yup'
 import Background from '~/components/LinearGradient'
 import logo from '~/assets/logo.png'
+import { signUpRequest } from '~/store/modules/auth/actions'
 import {
   Container,
   Form,
@@ -20,13 +22,17 @@ const SignUp = (props) => {
   const [passwordInput, setPasswordInput] = useState('')
   const inputEmailRef = useRef()
   const inputPasswordRef = useRef()
+  const dispatch = useDispatch()
+  const isLoading = useSelector((state) => state.Auth.loading)
 
   const schema = Yup.object().shape({
     nameInput: Yup.string().required('O Nome é requerido'),
     emailInput: Yup.string()
-      .email('Insira um e-mail válido')
-      .required('O campo e-mail é obrigatório'),
-    passwordInput: Yup.string().required('O campo senha é obrigatório'),
+      .required('O campo e-mail é obrigatório')
+      .email('Insira um e-mail válido'),
+    passwordInput: Yup.string()
+      .required('O campo senha é obrigatório')
+      .min(6, 'Sua senha deve ter no mínimo 6 caracteres'),
   })
 
   const handleSubmit = async () => {
@@ -38,7 +44,7 @@ const SignUp = (props) => {
 
     try {
       await schema.validate(fields, { abortEarly: false })
-      Alert.alert('Success', 'OK')
+      dispatch(signUpRequest(nameInput, emailInput, passwordInput))
     } catch (error) {
       Alert.alert('Error', error.errors.join('\n'))
     }
@@ -82,7 +88,7 @@ const SignUp = (props) => {
             ref={inputPasswordRef}
             onChangeText={(text) => setPasswordInput(text)}
           />
-          <SubmitButton onPress={handleSubmit} loading={false}>
+          <SubmitButton onPress={handleSubmit} loading={isLoading}>
             Cadastrar
           </SubmitButton>
           <SignLink onPress={() => gotoPage('SignIn')}>

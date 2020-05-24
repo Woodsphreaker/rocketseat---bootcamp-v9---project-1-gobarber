@@ -21,6 +21,8 @@ const SignIn = (props) => {
   const [emailInput, setEmailInput] = useState('')
   const [passwordInput, setPasswordInput] = useState('')
   const inputPasswordRef = useRef()
+  const dispatch = useDispatch()
+  const isLoading = useSelector((state) => state.Auth.loading)
 
   const schema = Yup.object().shape({
     emailInput: Yup.string()
@@ -36,7 +38,7 @@ const SignIn = (props) => {
     }
     try {
       await schema.validate(fields, { abortEarly: false })
-      gotoPage('SignUp')
+      dispatch(signInRequest(emailInput, passwordInput))
     } catch (error) {
       const errorMessages = error.errors.join('\n')
       Alert.alert('Error', errorMessages)
@@ -71,7 +73,7 @@ const SignIn = (props) => {
             onSubmitEditing={() => gotoPage('SignUp')}
             onChangeText={(text) => setPasswordInput(text)}
           />
-          <SubmitButton onPress={handleSubmit} loading={false}>
+          <SubmitButton onPress={handleSubmit} loading={isLoading}>
             Login
           </SubmitButton>
           <SignLink onPress={() => gotoPage('SignUp')}>
