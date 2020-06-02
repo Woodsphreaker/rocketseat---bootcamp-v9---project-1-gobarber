@@ -16,9 +16,15 @@ const Routes = createSwitchNavigator(
     },
     SignIn: {
       screen: SignIn,
+      navigationOptions: {
+        title: 'Sign In',
+      },
     },
     SignUp: {
       screen: SignUp,
+      navigationOptions: {
+        title: 'Sign Out',
+      },
     },
   },
   {

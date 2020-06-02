@@ -47,6 +47,7 @@ function* signUp({ name, email, password }) {
     )
     yield call(delay, 3000)
     yield put(signInRequest(email, password))
+    // yield signIn(email, password)
   } catch (error) {
     Alert.alert(
       'Erro',
