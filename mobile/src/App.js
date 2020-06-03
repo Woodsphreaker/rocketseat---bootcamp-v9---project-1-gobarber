@@ -2,7 +2,7 @@ import 'react-native-gesture-handler'
 import React from 'react'
 import { StatusBar } from 'react-native'
 import './config/reactotronConfig'
-import Routes from './routes'
+import WrapperRoutes from './routes/wrapperRoutes'
 
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -13,7 +13,7 @@ const App = () => {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <StatusBar backgroundColor="#7159c1" barStyle="light-content" />
-        <Routes />
+        <WrapperRoutes />
       </PersistGate>
     </Provider>
   )

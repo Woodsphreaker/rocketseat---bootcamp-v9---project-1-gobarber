@@ -1,19 +1,26 @@
+import React from 'react'
+
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 // import { createStackNavigator } from 'react-navigation-stack'
 
-import Login from '~/pages/login'
+// import Login from '~/pages/login'
 import Dashboard from '~/pages/dashboard'
 import SignIn from '~/pages/signIn'
 import SignUp from '~/pages/signUp'
 
-const Routes = createSwitchNavigator(
+const AuthenticatedRoutes = createSwitchNavigator(
   {
-    Login: {
-      screen: Login,
-    },
     Dashboard: {
       screen: Dashboard,
     },
+  },
+  {
+    initialRouteName: 'Dashboard',
+  },
+)
+
+const CommonRoutes = createSwitchNavigator(
+  {
     SignIn: {
       screen: SignIn,
       navigationOptions: {
@@ -32,4 +39,6 @@ const Routes = createSwitchNavigator(
   },
 )
 
-export default createAppContainer(Routes)
+export default (authenticated) => {
+  return createAppContainer(authenticated ? AuthenticatedRoutes : CommonRoutes)
+}

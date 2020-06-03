@@ -1,11 +1,11 @@
-import { all, put, takeLatest, call } from 'redux-saga/effects'
+import { all, put, takeLatest, call, delay } from 'redux-saga/effects'
 import { Alert } from 'react-native'
 import api from '~/services/api'
 // import history from '~/services/history'
 import { signInRequest, signInSuccess, signFailure } from './actions'
 import { setToken } from '~/utils/tokenManagement'
 
-import delay from '~/utils/delay'
+// import delay from '~/utils/delay'
 
 function* signIn({ email, password }) {
   try {
@@ -16,6 +16,8 @@ function* signIn({ email, password }) {
       Alert.alert('Erro', 'Usuário não pode ser um prestador')
       yield false
     }
+
+    // yield delay(3000)
 
     Alert.alert(
       'Sucesso',
@@ -45,7 +47,8 @@ function* signUp({ name, email, password }) {
       'Sucesso',
       'Cadastro efetuado com sucesso, tentando fazer login',
     )
-    yield call(delay, 3000)
+    // yield call(delay, 3000)
+    yield delay(3000)
     yield put(signInRequest(email, password))
     // yield signIn(email, password)
   } catch (error) {
