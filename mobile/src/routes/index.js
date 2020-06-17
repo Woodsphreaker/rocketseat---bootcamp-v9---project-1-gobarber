@@ -6,6 +6,7 @@ import Dashboard from '~/pages/dashboard'
 import Profile from '~/pages/profile'
 import SignIn from '~/pages/signIn'
 import SignUp from '~/pages/signUp'
+import Playground from '~/pages/playground'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
