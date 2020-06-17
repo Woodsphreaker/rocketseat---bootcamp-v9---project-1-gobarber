@@ -1,9 +1,11 @@
+import AsyncStorage from '@react-native-community/async-storage'
+
 const getToken = () => {
-  // return localStorage.getItem('sec-token')
+  return AsyncStorage.getItem('sec-token')
 }
 
 const setToken = (token) => {
-  // localStorage.setItem('sec-token', token)
+  return AsyncStorage.setItem('sec-token', token)
 }
 
 export { getToken, setToken }

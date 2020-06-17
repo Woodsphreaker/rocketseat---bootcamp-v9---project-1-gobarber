@@ -23,7 +23,7 @@ function* signIn({ email, password }) {
       'Sucesso',
       `Login efetuado com sucesso. Bem vindo(a) ${user.name}`,
     )
-    setToken(token)
+    yield setToken(token)
     yield put(signInSuccess(token, user))
     // history.push('/dash')
   } catch (error) {
