@@ -6,7 +6,7 @@ import pt from 'date-fns/locale/pt'
 import { Container, Left, Avatar, Info, Name, Time } from './styles'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
-const Appointments = ({ appointment, cancelAppointment }) => {
+const Appointments = ({ appointment, handleCancelApointment }) => {
   const {
     id,
     date,
@@ -43,7 +43,7 @@ const Appointments = ({ appointment, cancelAppointment }) => {
         </Info>
       </Left>
       {cancelable && (
-        <TouchableOpacity onPress={() => cancelAppointment(id)}>
+        <TouchableOpacity onPress={() => handleCancelApointment(id)}>
           <Icon name="event-busy" size={20} color="#f64c75" />
         </TouchableOpacity>
       )}

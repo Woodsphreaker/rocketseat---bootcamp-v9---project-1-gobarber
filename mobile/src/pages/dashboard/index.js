@@ -24,7 +24,7 @@ const dashboard = (props) => {
     }
   }
 
-  const confirmCancelAppointment = (appointmentID) => {
+  const handleCancelApointment = (appointmentID) => {
     Alert.alert('Confirme a ação', 'Deseja cancelar este agendamento ?', [
       {
         text: 'SIM',
@@ -57,7 +57,7 @@ const dashboard = (props) => {
           renderItem={({ item }) => (
             <Appointments
               appointment={item}
-              cancelAppointment={confirmCancelAppointment}
+              handleCancelApointment={handleCancelApointment}
             />
           )}
         />
