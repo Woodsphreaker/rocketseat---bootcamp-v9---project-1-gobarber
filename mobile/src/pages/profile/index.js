@@ -118,7 +118,11 @@ const profile = () => {
             Atualizar Perfil
           </SubmitButton>
 
-          <Button onPress={() => dispacth(signOut())}>Loggout</Button>
+          <Button
+            style={{ backgroundColor: '#f64c75' }}
+            onPress={() => dispacth(signOut())}>
+            Sair
+          </Button>
         </Form>
       </Container>
     </Background>

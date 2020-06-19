@@ -28,7 +28,7 @@ const AuthenticatedRoutes = createBottomTabNavigator(
     },
   },
   {
-    initialRouteName: 'Profile',
+    initialRouteName: 'Dashboard',
     tabBarOptions: {
       keyboardHidesTabBar: true,
       activeTintColor: '#fff',
