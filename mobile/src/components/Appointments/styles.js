@@ -1,10 +1,12 @@
 import styled from 'styled-components/native'
+import { darken } from 'polished'
 
 export const Container = styled.View`
   margin-bottom: 15px;
   padding: 20px;
   border-radius: 4px;
   background: #fff;
+  opacity: ${({ past }) => (past ? 0.6 : 1)};
 
   flex-direction: row;
   align-items: center;

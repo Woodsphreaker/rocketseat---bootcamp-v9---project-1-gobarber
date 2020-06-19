@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 const Appointments = ({ appointment }) => {
   const {
     date,
+    past,
     provider: {
       name,
       avatar: { url },
@@ -22,8 +23,10 @@ const Appointments = ({ appointment }) => {
     })
   }, [date])
 
+  console.log(past)
+
   return (
-    <Container>
+    <Container past={past}>
       <Left>
         <Avatar
           source={{
