@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Alert } from 'react-native'
 import api from '~/services/api'
 
 import Background from '~/components/LinearGradient'
@@ -23,6 +24,28 @@ const dashboard = (props) => {
     }
   }
 
+  const confirmCancelAppointment = (appointmentID) => {
+    Alert.alert('Confirme a ação', 'Deseja cancelar este agendamento ?', [
+      {
+        text: 'SIM',
+        onPress: () => cancelAppointment(appointmentID),
+      },
+      {
+        text: 'NÃO',
+        style: 'cancel',
+      },
+    ])
+  }
+
+  const cancelAppointment = async (appointmentID) => {
+    try {
+      await api.delete(`appointments/${appointmentID}`)
+      setData(data.filter(({ id }) => id !== appointmentID))
+    } catch (error) {
+      Alert.alert('error')
+    }
+  }
+
   return (
     <Background colors={['#7159c1', '#ab59c1']} flexSize={1}>
       <Container>
@@ -31,7 +54,12 @@ const dashboard = (props) => {
         <List
           data={data}
           keyExtractor={(item) => String(item.id)}
-          renderItem={({ item }) => <Appointments appointment={item} />}
+          renderItem={({ item }) => (
+            <Appointments
+              appointment={item}
+              cancelAppointment={confirmCancelAppointment}
+            />
+          )}
         />
       </Container>
     </Background>
